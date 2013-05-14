@@ -6,8 +6,8 @@ package com.telcontar4.android.data;
 public class Table {
 
   private static final String COLUMN_TYPE_ID = " INTEGER PRIMARY KEY AUTOINCREMENT";
-  static final String COLUMN_TYPE_INTEGER = " INTEGER";
-  static final String COLUMN_TYPE_TEXT = " TEXT";
+  public static final String COLUMN_TYPE_INTEGER = " INTEGER";
+  public static final String COLUMN_TYPE_TEXT = " TEXT";
 
   private final StringBuilder sql;
   private final String tableName;
@@ -53,7 +53,7 @@ public class Table {
   /**
    * Represents a table index.
    */
-  class Index {
+  public class Index {
 
     private final String sql;
 
