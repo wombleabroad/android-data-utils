@@ -15,23 +15,23 @@ either your local Maven repository or your Android project's libs directory.
 Creating and Updating Databases
 -------------------------------
 
-### 'AbstractSqliteOpenHelper'
+### AbstractSqliteOpenHelper
 
-'AbstractSqliteOpenHelper' extends Android's 'SQLiteOpenHelper' by adding structure around database
-creation in particular. The 'onCreate' method is broken down into three finer-grained template 
+`AbstractSqliteOpenHelper` extends Android's `SQLiteOpenHelper` by adding structure around database
+creation in particular. The `onCreate` method is broken down into three finer-grained template 
 methods:
 
-- 'createTables', in which, unsurprisingly, you create your SQLite tables and other objects
-- 'populateReferenceData', in which you can insert any reference data into appropriate tables (a
-'Context' is provided in order to access resource strings)
-- 'seedTransactionalTables', in which you can insert any other data &mdash; this method will only
+- `createTables`, in which, unsurprisingly, you create your SQLite tables and other objects
+- `populateReferenceData`, in which you can insert any reference data into appropriate tables (a
+`Context` is provided in order to access resource strings)
+- `seedTransactionalTables`, in which you can insert any other data &mdash; this method will only
 be called if the fourth constructor argument is true and can be used to insert test data during
 app development.
 
-The 'onUpgrade' method has less structure currently, but the 'upgradeIncludes' method helps
+The `onUpgrade` method has less structure currently, but the `upgradeIncludes` method helps
 determine whether or not a specific version's changes apply to the current upgrade.
 
-### 'Table'
+### Table
 
 A common practice in Android is to define your database schema as a set of constants in a dedicated
 class. For example, I usually define a class that looks like this:
@@ -70,7 +70,7 @@ class. For example, I usually define a class that looks like this:
     }
     
 Avoiding the use of string literals in DDL and queries is usually a good idea, but can lead to some
-messy, error-prone string concatenation. The 'Table' class provides a fluent interface for table
+messy, error-prone string concatenation. The `Table` class provides a fluent interface for table
 creation that mitigates this. To create the "myTable" table with an index on the "my_text_value"
 column, do the following:
 
@@ -86,11 +86,11 @@ column, do the following:
 Querying Databases and Working with Cursors
 -------------------------------------------
 
-### 'Query'
+### Query
 
-After struggling with some of the same string concatenation issues with Android's 'SQLiteQueryBuilder'
+After struggling with some of the same string concatenation issues with Android's `SQLiteQueryBuilder`
 &mdash; along with problems writing Robolectric-based unit tests of that functionality &mdash; I 
-created the 'Query' class as a fluent interface for SQL query building. While not supporting 
+created the `Query` class as a fluent interface for SQL query building. While not supporting 
 arbitrarily-complex SQL, it handles the common cases well enough to be useful and can be extended if
 necessary. Consider the following example:
 
@@ -108,14 +108,14 @@ necessary. Consider the following example:
 
 Note that all columns are referred to by their fully-qualified names, as defined in your Schema class
 equivalent. I typically define these query objects as constants where possible. The resulting SQL is
-obtained by calling the 'getSql' method on the 'Query' object.
+obtained by calling the `getSql` method on the `Query` object.
 
-### 'DataUtils'
+### DataUtils
 
-'DataUtils' is a collection of static methods that facilitate working with 'Cursor' objects. Some of
+`DataUtils` is a collection of static methods that facilitate working with `Cursor` objects. Some of
 the highlights:
 
-- a set of 'getXXX' methods for the usual Java types that encapsulate null handling and the column
+- a set of `getXXX` methods for the usual Java types that encapsulate null handling and the column
 index-based value lookup of column values
 - integer constants for boolean values, so that boolean columns are handled consistently
 - date columns are assumed to be INTEGER (Long) values and are retrieved and formatted appropriately
@@ -123,7 +123,7 @@ index-based value lookup of column values
 Testing
 -------
 
-When writing unit tests it is often useful to stub 'Cursor' objects. 'ContentValuesArrayBasedTestCursor'
-does that by allowing you to define the contents of each row as a 'ContentValues' object. It also
-provides a constructor that lets you create an arbitrary number of rows consisting of 'BaseColumns._ID'
+When writing unit tests it is often useful to stub `Cursor` objects. `ContentValuesArrayBasedTestCursor`
+does that by allowing you to define the contents of each row as a `ContentValues` object. It also
+provides a constructor that lets you create an arbitrary number of rows consisting of `BaseColumns._ID`
 values only.
