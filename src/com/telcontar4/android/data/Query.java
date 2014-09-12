@@ -103,9 +103,9 @@ public class Query {
     return this;
   }
 
-  public Query whereNotIn(String column, String subquery) {
+  public Query whereNotIn(String column, String valueList) {
     prefixWhereSubclause();
-    sql.append(column).append(" NOT IN (").append(subquery).append(")");
+    sql.append(column).append(" NOT IN (").append(valueList).append(")");
     return this;
   }
 
